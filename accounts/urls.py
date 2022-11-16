@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views
+from contatos.views import index
 
 urlpatterns = [
-     path("", views.login, name='index_login'),
+     path("", index),
      path("login/", views.login, name='login'),
      path("logout/", views.logout, name='logout'),
      path("register/", views.register, name='register'),
-     path("dashboard/", views.dashboard, name='dashboard'),
 ]
 

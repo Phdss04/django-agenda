@@ -4,13 +4,15 @@ from django.contrib.auth import authenticate
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from contatos.models import Contato
 
 # Create your views here.
+
 def login(request):
     if request.method != 'POST':
         return render(request, 'accounts/login.html')
     
-    print(request.POST)
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
     user = auth.authenticate(request, username=usuario, password=senha)
@@ -68,6 +70,3 @@ def register(request):
     messages.success(request, "Usuário cadastrado com sucesso! Realize o login.")
     return redirect('login')
     
-@login_required(redirect_field_name='login')
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')

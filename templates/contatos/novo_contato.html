@@ -2,10 +2,12 @@
 
 {%block 'content'%}
 
-<form method="POST" action="{%url 'novo_contato'%}">
+<form method="POST" enctype='multipart/form-data' action="{%url 'novo_contato'%}">
     {% csrf_token %}
     {%include 'parcials/_messages.html'%}
-    {{form.as_p}}
+    <table class="table">
+      {{form}}
+    </table>
     <button type="submit" class="btn btn-primary">Salvar contato</button>
   </form>
 {%endblock 'content'%}
