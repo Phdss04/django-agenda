@@ -2,8 +2,7 @@
 {%block 'title'%} Dashboard {%endblock 'title'%}
 {%block 'content'%}
 
-<h1> Bem vindo {{user.firstname}} {{user.lastname}} </h1>
+<h1> Bem vindo, {{user.first_name}} {{user.last_name}}   </h1>
 {%include 'parcials/_messages.html'%}
-<h3> Usuario logado: {{user}} </h3>
 <img src="../../static/bolsoringa.jpg" style="width: 900px"> </img>
 {%endblock%}
