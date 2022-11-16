@@ -7,8 +7,6 @@
 <br>
 <br>
 {%include 'parcials/_messages.html'%}
-
-
   <p>
     <a class="btn btn-primary" href="{%url 'novo_contato'%}">
       Adicionar contato
@@ -31,7 +29,6 @@
           <table class="table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Nome</th>
                 <th>Sobrenome</th>
                 <th>Telefone</th>
@@ -42,7 +39,6 @@
             <tbody>
               {% for contato in contatos %}
                 <tr>
-                  <td>{{contato.id}}</td>
                   <td>
                     <a href="{% url 'mostrar_contato' contato.id %}"> {{contato.nome}}</a>
                   </td>

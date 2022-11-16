@@ -2,10 +2,12 @@
 {%block 'title'%}Editando {{contato.nome}} {%endblock 'title'%}
 {%block 'content'%}
 
-<form method="POST" action="{%url 'editar_contato' contato.id %}">
+<form method="POST" enctype="multipart/form-data" action="{%url 'editar_contato' contato.id %}">
     {% csrf_token %}
     {%include 'parcials/_messages.html'%}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-primary">Salvar edições</button>
-  </form>
+    <table class="table">
+      {{form}}
+    </table>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
 {%endblock 'content'%}

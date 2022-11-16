@@ -28,7 +28,8 @@ def dashboard(request):
 def mostrar_contato(request, contato_id):
     contato = get_object_or_404(Contato, id=contato_id )
     if not contato.mostrar:
-        raise Http404
+        messages.error(request, "Contato não encontrado")
+        return redirect('dashboard')
     return render(request, 'contatos/mostrar_contato.html', {
         'contato': contato
     })
@@ -77,7 +78,7 @@ def editar_contato(request, contato_id):
     form = ContatoForm(instance=contato)
     
     if request.method == 'POST':
-        form = ContatoForm(request.POST, instance=contato)
+        form = ContatoForm(request.POST, request.FILES, instance=contato)
         if form.is_valid():
             contato.save()
             messages.success(request, "Contato alterado com sucesso!")
