@@ -1,8 +1,7 @@
-# created by virtualenv automatically
-venv/
+#python stuff
 __pycache__/
 
 # Environments
-.venv
 venv/
-venv.bak/
+.venv
+.env
