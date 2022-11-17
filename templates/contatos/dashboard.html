@@ -25,48 +25,67 @@
     </div>
   </div>
     
-  </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Sobrenome</th>
-                <th>Telefone</th>
-                <th>Email</th>
-                <th>Categoria</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for contato in contatos %}
-                <tr>
-                  <td>
-                    <a href="{% url 'mostrar_contato' contato.id %}"> {{contato.nome}}</a>
-                  </td>
-                  <td>{{contato.sobrenome}}</td>
-                  <td>{{contato.telefone}}</td>
-                  <td>{{contato.email}}</td>
-                  <td>{{contato.categoria}}</td>
-                  <td><a href="{%url 'editar_contato' contato.id %}"> <img style="width: 30px" src="../../media/website-related/edit.png"> </img></a></td>
-                  <td><a href="{%url 'excluir_contato' contato.id %}"><img style="width: 30px" src="../../media/website-related/delete.png"> </img></a></td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-  
-          <nav>
-            <ul class="pagination">
-              {% for pagina in contatos.paginator.page_range %}
-              <li>
-                {%if contatos.number == pagina %}
-                  <a class="page-link active" href="?page={{pagina}}&request.GET.get('termo') "> {{pagina}} </a>
-                {%else%}
-                <a class="page-link" href="?page={{pagina}}&request.GET.get('termo') "> {{pagina}} </a>
-                {%endif%}
-              </li>
-              {% endfor %}
-              <span class="current">
-                Página {{ contatos.number }} de {{ contatos.paginator.num_pages }}.
-              </span>
-            </ul>
-          </nav>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Telefone</th>
+        <th>Email</th>
+        <th>Categoria</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contato in contatos %}
+        <tr>
+          <td>
+            <a href="{% url 'mostrar_contato' contato.id %}"> {{contato.nome}}</a>
+          </td>
+          <td>{{contato.sobrenome}}</td>
+          <td>{{contato.telefone}}</td>
+          <td>{{contato.email}}</td>
+          <td>{{contato.categoria}}</td>
+          <td> <a href="{%url 'editar_contato' contato.id %}"><img style="width: 30px" src="../../media/website-related/edit.png"> </img></a></td>
+          <td> <a style="cursor: pointer" data-toggle="modal" data-target="#modal"> <img style="width: 30px" src="../../media/website-related/delete.png"> </img></a></td>
+        </tr>
+      
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Cuidado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Deseja excluir "{{contato.nome}}" dos contatos"?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary"> <a style="color: white" href="{%url 'excluir_contato' contato.id %}"> Confirmar <a/></button>
+              </div> 
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+  </table>
+
+  <nav>
+    <ul class="pagination">
+      {% for pagina in contatos.paginator.page_range %}
+      <li>
+        {%if contatos.number == pagina %}
+          <a class="page-link active" href="?page={{pagina}}&request.GET.get('termo') "> {{pagina}} </a>
+        {%else%}
+        <a class="page-link" href="?page={{pagina}}&request.GET.get('termo') "> {{pagina}} </a>
+        {%endif%}
+      </li>
+      {% endfor %}
+      <span class="current">
+        Página {{ contatos.number }} de {{ contatos.paginator.num_pages }}.
+      </span>
+    </ul>
+  </nav>
 {%endblock%}
