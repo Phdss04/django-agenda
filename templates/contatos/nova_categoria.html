@@ -1,0 +1,13 @@
+{%extends 'base.html'%}
+
+
+{%block 'content'%}
+<form method="POST" action="{%url 'nova_categoria'%}">
+    {% csrf_token %}
+    {%include 'parcials/_messages.html'%}
+    <table class="table">
+      {{form.as_p}}
+    </table>
+    <button type="submit" class="btn btn-primary">Criar</button>
+</form>
+{%endblock 'content'%}

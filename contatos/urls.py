@@ -11,4 +11,6 @@ urlpatterns = [
     path('novo_contato/', views.novo_contato, name='novo_contato'),
     path('editar_contato/<int:contato_id>', views.editar_contato, name='editar_contato'),
     path('excluir_contato/<int:contato_id>', views.excluir_contato, name='excluir_contato'),
+    path('nova_categoria/', views.nova_categoria, name='nova_categoria'),
+    path('categoria/<int:categoria_id>', views.excluir_categoria, name='excluir_categoria'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

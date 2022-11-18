@@ -2,11 +2,10 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from .forms import ContatoForm
-from .models import Contato
+from .forms import ContatoForm, CategoriaForm
+from .models import Contato, Categoria
 
 # Create your views here.
 
@@ -17,12 +16,14 @@ def index(request):
 def dashboard(request):
     contatos = Contato.objects.order_by('-id').filter(
         mostrar = True
-    )
-    paginator = Paginator(contatos, 7)
+    ) 
+    categorias = Categoria.objects.order_by('-id')
+    paginator = Paginator(contatos, 6)
     page = request.GET.get('page')
     contatos = paginator.get_page(page)
     return render(request, 'contatos/dashboard.html', {
-        'contatos': contatos
+        'contatos': contatos,
+        'categorias': categorias
     })
 
 def mostrar_contato(request, contato_id):
@@ -94,9 +95,32 @@ def excluir_contato(request, contato_id):
     contato = get_object_or_404(Contato, id=contato_id)
     if contato:
         contato.delete()
-        print(contato)
         messages.success(request, 'Contato deletado com sucesso!')
         return redirect('dashboard')
     else:
         messages.error(request, 'Contado não encontrado.')
         return redirect('/')  
+    
+def nova_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Categoria adicionada com sucesso!")
+            return redirect('dashboard')
+        else:
+            messages.error(request, "Erro ao criar categoria, tente novamente.")
+            return render(request, 'contatos/nova_categoria.html', {'form': form})
+    else:
+        form = CategoriaForm()
+        return render(request, 'contatos/nova_categoria.html', {'form': form})
+    
+def excluir_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    if categoria:
+        categoria.delete()
+        messages.success(request, 'Categoria deletada com sucesso!')
+        return redirect('dashboard')
+    else:
+        messages.error(request, 'Categoria não encontrada.')
+        return redirect('dashboard')  

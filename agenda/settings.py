@@ -30,7 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['django-agenda-projeto.herokuapp.com', '127.0.0.1']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,7 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'agenda.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -118,8 +116,6 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 
 USE_TZ = True
-
-
 
 
 # Static files (CSS, JavaScript, Images)
