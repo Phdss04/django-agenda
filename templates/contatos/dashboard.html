@@ -31,7 +31,7 @@
       <tbody>
         {%for categoria in categorias%}
           <tr>
-            <td>{{categoria.nome}}</td>
+           <td> <strong>{{categoria.nome}}</strong></td>
             <td><a href="{%url 'excluir_categoria' categoria.id %}"> <img style="width: 30px" src="../../media/website-related/delete.png"> </img></a></td>
           </tr>
         {%endfor%}

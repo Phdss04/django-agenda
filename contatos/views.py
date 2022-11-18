@@ -14,13 +14,16 @@ def index(request):
 
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    contatos = Contato.objects.order_by('-id').filter(
-        mostrar = True
-    ) 
-    categorias = Categoria.objects.order_by('-id')
+    contatos = Contato.objects.order_by('-id').filter(mostrar = True) 
+    categorias = Categoria.objects.order_by('-id')   
+    
     paginator = Paginator(contatos, 6)
     page = request.GET.get('page')
     contatos = paginator.get_page(page)
+    
+    paginator_categoria = Paginator(categorias, 6)
+    categorias = paginator_categoria.get_page(page)
+
     return render(request, 'contatos/dashboard.html', {
         'contatos': contatos,
         'categorias': categorias
@@ -32,7 +35,7 @@ def mostrar_contato(request, contato_id):
         messages.error(request, "Contato não encontrado")
         return redirect('dashboard')
     return render(request, 'contatos/mostrar_contato.html', {
-        'contato': contato
+        'contato': contato,
     })
     
 def busca(request):
